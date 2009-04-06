@@ -1,0 +1,7 @@
+= acts_as_filterable
+
+Description goes here.
+
+== Copyright
+
+Copyright (c) 2009 Rob Ares. See LICENSE for details.
