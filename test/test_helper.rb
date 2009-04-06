@@ -17,13 +17,14 @@ ActiveRecord::Schema.define do
     t.string :first_name
     t.string :last_name
     t.string :phone_number
-    t.string :fax_number
     t.string :email_address
+    t.string :discount
   end
 end
 
 class ContactDetail < ActiveRecord::Base
-  filtered :phone_number, :fax_number  
+  filters :phone_number, :phone
+  filters :discount, :numeric
 end
 
 class Test::Unit::TestCase
