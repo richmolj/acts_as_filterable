@@ -8,8 +8,8 @@ module ActsAsFilterable
       # flyweight (GoF) of all the filters that can be applied
       def all
         {
-          :numeric => lambda { |field| field.gsub! /[^0-9\.]/, "" },
-          :phone => lambda { |field| field.gsub! /[^0-9]/, "" }
+          :numeric => lambda { |field| field.gsub!(/[^0-9\.]/, "") },
+          :phone => lambda { |field| field.gsub!(/[^0-9]/, "") }
         }
       end
     end

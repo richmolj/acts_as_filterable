@@ -6,10 +6,10 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Rob Ares"]
-  s.date = %q{2009-04-05}
+  s.date = %q{2009-04-06}
   s.email = %q{rob.ares@gmail.com}
   s.extra_rdoc_files = ["README.rdoc", "LICENSE"]
-  s.files = ["README.rdoc", "lib/acts_as_filterable.rb", "test/acts_as_filterable_test.rb", "test/test_helper.rb", "LICENSE"]
+  s.files = ["README.rdoc", "VERSION.yml", "lib/acts_as_filterable.rb", "lib/base.rb", "lib/filters.rb", "test/acts_as_filterable_integration_test.rb", "test/test_helper.rb", "LICENSE"]
   s.has_rdoc = true
   s.homepage = %q{http://github.com/rares/acts_as_filterable}
   s.rdoc_options = ["--inline-source", "--charset=UTF-8"]

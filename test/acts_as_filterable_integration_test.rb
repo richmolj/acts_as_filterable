@@ -24,7 +24,6 @@ class ActsAsFilterableIntegrationTest < Test::Unit::TestCase
       end
     
       should "strip all formatting" do
-        
         @model.phone_number.should be("2223334444")
       end
       

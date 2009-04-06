@@ -30,7 +30,7 @@ module ActsAsFilterable
       
       def apply_filters_before_validation
         self.class.processing_specifications.each do |attr, filter|
-          filter.call(send(attr.to_sym))
+          filter.call(self.send(attr.to_sym))
         end
       end
   
