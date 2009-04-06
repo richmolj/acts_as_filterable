@@ -20,23 +20,34 @@ class ActsAsFilterableIntegrationTest < Test::Unit::TestCase
     context "with formatted phone number data" do
       setup do
         @model.phone_number = "(222) 333-4444"
+        @model.save
       end
     
-      should "strip all formatting and return a coercable numeric value" do
-        @model.save.should be(true)
+      should "strip all formatting" do
+        
         @model.phone_number.should be("2223334444")
+      end
+      
+      should "return a coercable numeric value" do
+        @model.phone_number.to_f.should be(2223334444)
       end
     
     end
     
     context "with formatted numeric data" do
       setup do
-        @model.discount = "(222) 333-4444"
+        @model.discount = "%0.25"
+        @model.save
       end
 
-      should "description" do
-        
+      should "strip all formatting" do
+        @model.discount.should be("0.25")        
       end
+    
+      should "return a coercable numeric value" do
+        @model.discount.to_f.should be(0.25)
+      end
+    
     end
     
     
