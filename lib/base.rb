@@ -1,3 +1,4 @@
+require "filter"
 require "filters"
 
 module ActsAsFilterable
@@ -18,19 +19,25 @@ module ActsAsFilterable
       
       module ClassMethods    
         def processing_specifications
-          @processing_specifications ||= {}
+          @processing_specifications ||= {} 
         end
         
         # TODO: the implicit block will be cached and sent on to create on 
         # the fly filters that allows the user to author their own filters.
-        def filters(field_name, type)
-          processing_specifications[field_name] = Filters.all[type] 
+        def filters(field_name, type, &blk)
+          filter = if block_given? 
+            Filter.new(type, blk)
+          else
+            Filters.all[type]
+          end
+
+          processing_specifications[field_name] = filter 
         end
       end
       
       def apply_filters_before_validation
-        self.class.processing_specifications.each do |attr, filter|
-          filter.call(self.send(attr.to_sym))
+        self.class.processing_specifications.each do |field_name, filter|
+          filter.process(self, field_name)
         end
       end
   

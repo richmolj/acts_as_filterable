@@ -1,17 +1,28 @@
+require "filter"
+
 module ActsAsFilterable
   
   module ActiveRecordExt
     
-    module Filters 
-      extend self
-    
-      # flyweight (GoF) of all the filters that can be applied
-      def all
-        {
-          :numeric => lambda { |field| field.gsub!(/[^0-9\.]/, "") },
-          :phone => lambda { |field| field.gsub!(/[^0-9]/, "") }
-        }
+    # TODO: this sucks. make it not suck
+    class Filters 
+      
+      class << self
+      
+        def all 
+          @filters ||= {
+           :numeric => Filter.new(:numeric, proc { |field| field.gsub!(/[^0-9\.]/, "") }),
+           :phone => Filter.new(:phone, proc { |field| field.gsub!(/[^0-9]/, "") })
+          }
+        end
+
+        def append(type, &action)
+          raise unless action.arity == 1
+          all[type.to_sym] = Filter.new(type.to_sym, action)
+        end
+
       end
+          
     end
     
   end

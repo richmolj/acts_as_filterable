@@ -49,7 +49,6 @@ class ActsAsFilterableIntegrationTest < Test::Unit::TestCase
     
     end
     
-    
   end
 
 end
