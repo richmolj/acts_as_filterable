@@ -1,46 +1,44 @@
-require "filter"
-require "filters"
-
 module ActsAsFilterable
   
   module ActiveRecordExt
     
     module Base
       
-      # when this module is added to ActiveRecord
-      # we add the filterable macros and add a before_validation filter
-      # that will apply each filter before validations are run.  
       def self.included(klazz)
         klazz.extend ClassMethods
-        klazz.before_validation :apply_filters_before_validation
+        klazz.before_validation :apply_filters
       end
   
       private 
       
-      module ClassMethods    
-        def processing_specifications
-          @processing_specifications ||= {} 
+      module ClassMethods
+        def to_be_filtered
+          @to_be_filtered ||= {}
         end
         
-        # TODO: the implicit block will be cached and sent on to create on 
-        # the fly filters that allows the user to author their own filters.
-        def filters(field_name, type, &blk)
-          filter = if block_given? 
-            Filter.new(type, blk)
-          else
-            Filters.all[type]
-          end
-
-          processing_specifications[field_name] = filter 
+        def filter_for(*args)
+          type = args.first
+          return if type.nil? or not filters.member?(type)
+          args.delete_at(0)
+          to_be_filtered[type] = args unless args.empty?
         end
+        
+        def filters
+          @filters ||= begin
+            { :phone => /[^0-9]*/ }.freeze
+          end
+        end
+        
       end
       
-      def apply_filters_before_validation
-        self.class.processing_specifications.each do |field_name, filter|
-          filter.process(self, field_name)
+      def apply_filters
+        self.class.to_be_filtered.each do |k, v|
+          v.each do |attr|
+            send(attr).gsub!(self.class.filters[k], "") unless send(attr).blank?
+          end
         end
       end
-  
+            
     end
   
   end

@@ -1,7 +1,7 @@
 module ActsAsFilterable
   module ActiveRecordExt 
-    autoload :Base, "base"  
+    autoload :Base, "base"   
   end
 end
 
-ActiveRecord::Base.send(:include, ActsAsFilterable::ActiveRecordExt::Base)
+ActiveRecord::Base.send :include, ActsAsFilterable::ActiveRecordExt::Base

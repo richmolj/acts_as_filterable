@@ -1,6 +1,12 @@
 = acts_as_filterable
 
-Description goes here.
+Small BS plugin that allows you to add small processing filters to 
+ActiveRecord attributes. This was born from working with a legacy 
+database that had a bunch of bad apps depending on the fields 
+looking just the right way.
+
+Instead of implementing :before_validate all over the place, I threw this together
+so that I can just apply macros.
 
 == Copyright
 
