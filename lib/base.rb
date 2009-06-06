@@ -13,19 +13,20 @@ module ActsAsFilterable
       
       module ClassMethods
         def to_be_filtered
-          @to_be_filtered ||= {}
+          @to_be_filtered ||= Hash.new []
         end
         
-        def filter_for(*args)
-          type = args.first
-          return if type.nil? or not filters.member?(type)
-          args.delete_at(0)
-          to_be_filtered[type] = args unless args.empty?
+        def filter_for_numerics(*args)
+          unless args.empty?
+            to_be_filtered[:numbers] |= args
+          end
         end
         
         def filters
           @filters ||= begin
-            { :phone => /[^0-9]*/ }.freeze
+            filter = Hash.new []
+            filter[:numbers] = /[^0-9]*/
+            filter
           end
         end
         
