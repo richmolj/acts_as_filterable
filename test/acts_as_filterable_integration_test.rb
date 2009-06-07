@@ -64,7 +64,7 @@ class ActsAsFilterableIntegrationTest < Test::Unit::TestCase
         @model.phone_number = nil
       end
       
-      should "not raise any errors due to a nil value" do
+      should "not raise any errors due to a nil attribute value" do
         lambda { @model.valid? }.should_not raise_error
       end
       
@@ -79,7 +79,7 @@ class ActsAsFilterableIntegrationTest < Test::Unit::TestCase
         ContactDetail.filter_for_numerics :discount
       end
       
-      should "not raise any errors due to a nil value" do
+      should "not raise any errors due to a non-character attribute value" do
         lambda { @model.valid? }.should_not raise_error
       end
       
