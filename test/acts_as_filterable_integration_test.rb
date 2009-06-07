@@ -7,7 +7,7 @@ class ActsAsFilterableIntegrationTest < Test::Unit::TestCase
       @model = ContactDetail.new do |cd|
         cd.name = "joe smith"
         cd.phone_number = "2223334444"
-        cd.discount = "0.25"
+        cd.discount = 0.25
       end
     end
 
@@ -59,16 +59,35 @@ class ActsAsFilterableIntegrationTest < Test::Unit::TestCase
     
     end
     
-    context "with a null attribute value" do
-      should "not attempt to filter the attribute value" do
-        @model.expects(:send).with(:phone_number).never
+    context "with a nill attribute value" do
+      setup do
+        @model.phone_number = nil
+      end
+      
+      should "not raise any errors due to a nil value" do
+        lambda { @model.valid? }.should_not raise_error
+      end
+      
+      should "not attempt to change the attribute value" do
+        @model.valid?
+        @model.phone_number.should be_nil
       end
     end
     
     context "with non-character attributes" do
-      should "not attempt to filter the attribute value" do
-        @model.expects(:send).with(:discount).never
+      setup do
+        ContactDetail.filter_for_numerics :discount
       end
+      
+      should "not attempt to filter the attribute value" do
+        lambda { @model.valid? }.should_not raise_error
+      end
+      
+      should "not attempt to change the attribute value" do
+        @model.valid?
+        @model.discount.should be(0.25)
+      end
+      
     end
     
   end
