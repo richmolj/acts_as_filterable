@@ -59,6 +59,18 @@ class ActsAsFilterableIntegrationTest < Test::Unit::TestCase
     
     end
     
+    context "with a null attribute value" do
+      should "not attempt to filter the attribute value" do
+        @model.expects(:send).with(:phone_number).never
+      end
+    end
+    
+    context "with non-character attributes" do
+      should "not attempt to filter the attribute value" do
+        @model.expects(:send).with(:discount).never
+      end
+    end
+    
   end
 
 end

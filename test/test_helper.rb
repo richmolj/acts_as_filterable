@@ -1,6 +1,7 @@
 require "test/unit"
 require "rubygems"
 require "active_record"
+require "mocha"
 require "shoulda"
 require "matchy"
 
@@ -17,7 +18,7 @@ ActiveRecord::Schema.define do
     t.string :name
     t.string :phone_number
     t.string :fax_number
-    t.string :discount
+    t.float :discount
   end
 end
 

@@ -20,7 +20,7 @@ module ActsAsFilterable
         def filters
           @filters ||= begin
             f = Hash.new []
-            f[:numbers] = /[^0-9]*/i
+            f[:numbers] = /[^0-9]*/
             f
           end
         end
