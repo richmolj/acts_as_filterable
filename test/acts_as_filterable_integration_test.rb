@@ -11,6 +11,30 @@ class ActsAsFilterableIntegrationTest < Test::Unit::TestCase
       end
     end
 
+    should "add an #apply_filters instance method" do
+      @model.send(:apply_filters).should_not be_nil
+    end
+
+    should "know about the types of filters that will be applied to the attributes" do
+      ContactDetail.should be_respond_to(:to_be_filtered)
+    end
+    
+    should "make it's filters available" do
+      ContactDetail.should be_respond_to(:filters)
+    end
+    
+    should "default filters that don't exist to an empty array" do
+      ContactDetail.filters[:test].should be_empty
+    end
+    
+    should "freeze the macro collection so it cannot be mutated" do
+      ContactDetail.filters.store(:test, /./).should raise_error
+    end
+    
+    should "add a macro to filter non-numeric values from string fields" do
+      ContactDetail.should be_respond_to(:filter_for_numerics)
+    end
+    
     should "be savable with valid data" do
       @model.save.should be(true)
     end

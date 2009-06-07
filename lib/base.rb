@@ -8,7 +8,7 @@ module ActsAsFilterable
         klazz.extend ClassMethods
         klazz.before_validation :apply_filters
       end
-  
+      
       private 
       
       module ClassMethods
@@ -17,25 +17,23 @@ module ActsAsFilterable
         end
         
         def filter_for_numerics(*args)
-          unless args.empty?
-            to_be_filtered[:numbers] |= args
-          end
+          to_be_filtered[:numbers] |= args unless args.empty?
         end
         
         def filters
           @filters ||= begin
-            filter = Hash.new []
-            filter[:numbers] = /[^0-9]*/
-            filter
+            f = Hash.new []
+            f[:numbers] = /[^0-9]*/i
+            f
           end
         end
         
       end
       
       def apply_filters
-        self.class.to_be_filtered.each do |k, v|
-          v.each do |attr|
-            send(attr).gsub!(self.class.filters[k], "") unless send(attr).blank?
+        self.class.to_be_filtered.each do |key, value|
+          value.each do |attr|
+            send(attr).gsub!(self.class.filters[key], "") unless send(attr).blank?
           end
         end
       end
