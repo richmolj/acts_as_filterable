@@ -27,6 +27,10 @@ class ActsAsFilterableIntegrationTest < Test::Unit::TestCase
       ContactDetail.filters[:test].should be_empty
     end
     
+    should "contain some filters initially" do
+      ContactDetail.filters[:numeric].should_not be_nil
+    end
+    
     should "freeze the macro collection so it cannot be mutated" do
       ContactDetail.filters.store(:test, /./).should raise_error
     end
