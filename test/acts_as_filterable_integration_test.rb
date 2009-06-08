@@ -90,6 +90,17 @@ class ActsAsFilterableIntegrationTest < Test::Unit::TestCase
       
     end
     
+    context "with an attribute value that contains no non-numeric values to be stripped" do
+      setup do 
+        @model.phone_number = "2223334444"
+        @model.valid?
+      end
+      
+      should "not change the attribute value" do
+        @model.phone_number.should be("2223334444")
+      end
+    end
+    
   end
 
 end
