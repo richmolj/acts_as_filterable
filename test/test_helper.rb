@@ -1,5 +1,4 @@
 require "test/unit"
-require "rubygems"
 require "active_record"
 require "shoulda"
 require "matchy"
