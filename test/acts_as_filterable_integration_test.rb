@@ -12,23 +12,23 @@ class ActsAsFilterableIntegrationTest < Test::Unit::TestCase
     end
 
     should "add an #apply_filters instance method" do
-      @model.send(:apply_filters).should_not be_nil
+      @model.send(:apply_filters).nil?.should_not be(true)
     end
 
     should "know about the types of filters that will be applied to the attributes" do
-      ContactDetail.should be_respond_to(:to_be_filtered)
+      ContactDetail.respond_to?(:to_be_filtered).should be(true)
     end
     
     should "make it's filters available" do
-      ContactDetail.should be_respond_to(:filters)
+      ContactDetail.respond_to?(:filters).should be(true)
     end
     
     should "default filters that don't exist to an empty array" do
-      ContactDetail.filters[:test].should be_empty
+      ContactDetail.filters[:test].empty?.should be(true)
     end
     
     should "contain some filters initially" do
-      ContactDetail.filters[:numeric].should_not be_nil
+      ContactDetail.filters[:numeric].nil?.should_not be(true)
     end
     
     should "freeze the macro collection so it cannot be mutated" do
@@ -36,7 +36,7 @@ class ActsAsFilterableIntegrationTest < Test::Unit::TestCase
     end
     
     should "add a macro to filter non-numeric values from string fields" do
-      ContactDetail.should be_respond_to(:filter_for_numerics)
+      ContactDetail.respond_to?(:filter_for_numerics).should be(true)
     end
     
     should "be savable with valid data" do
@@ -70,7 +70,7 @@ class ActsAsFilterableIntegrationTest < Test::Unit::TestCase
       
       should "not attempt to change the attribute value" do
         @model.valid?
-        @model.phone_number.should be_nil
+        @model.phone_number.nil?.should be(true)
       end
     end
     
