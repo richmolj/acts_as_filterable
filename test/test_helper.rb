@@ -1,5 +1,5 @@
 require "test/unit"
-require "active_record"
+require "activerecord"
 require "shoulda"
 require "matchy"
 

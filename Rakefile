@@ -10,7 +10,7 @@ begin
     gem.homepage = "http://github.com/rares/acts_as_filterable"
     gem.authors = ["Rob Ares"]
 
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+    gem.add_dependency("activerecord", ">= 1.15.0")    
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
