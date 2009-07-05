@@ -19,9 +19,9 @@ module ActsAsFilterable
         
         def filters
           @filters ||= begin
-            f = Hash.new []
-            f[:numbers] = /[^0-9]*/
-            f
+            filter_hash = Hash.new []
+            filter_hash[:numbers] = /[^\d]*/
+            filter_hash
           end
         end
         
