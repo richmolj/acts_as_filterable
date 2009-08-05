@@ -18,10 +18,8 @@ module ActsAsFilterable
         end
         
         def filters
-          @filters ||= begin
-            filter_hash = Hash.new []
-            filter_hash[:numbers] = /[^\d]*/
-            filter_hash
+          @filters ||= returning(Hash.new([])) do |f|
+            f[:numbers] = /[^\d]*/
           end
         end
         
