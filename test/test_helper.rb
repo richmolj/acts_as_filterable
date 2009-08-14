@@ -21,7 +21,7 @@ ActiveRecord::Schema.define do
 end
 
 class ContactDetail < ActiveRecord::Base
-  filter_for_numerics :phone_number, :fax_number
+  filter_for_digits :phone_number, :fax_number
 end
 
 class Test::Unit::TestCase

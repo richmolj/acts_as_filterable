@@ -13,24 +13,26 @@ module ActsAsFilterable
       
       module ClassMethods
         
-        def filter_for_numerics(*args)
-          to_be_filtered[:numbers] |= args unless args.empty?
+        def filter_for_digits(*args)
+          filtered_attributes[:digits] |= args unless args.empty?
         end
         
         def filters
           @filters ||= returning(Hash.new([])) do |f|
-            f[:numbers] = /[^\d]*/
-          end
+            f[:digits] = /[^\d]*/
+          end.freeze
         end
         
-        def to_be_filtered
-          @to_be_filtered ||= Hash.new []
+        def filtered_attributes
+          @filtered_attributes ||= Hash.new []
         end
         
       end
       
+      protected
+      
       def apply_filters
-        self.class.to_be_filtered.each do |key, value|
+        self.class.filtered_attributes.each do |key, value|
           value.each do |attr|
            apply_filter self.class.filters[key], attr
           end

@@ -16,7 +16,7 @@ class ActsAsFilterableIntegrationTest < Test::Unit::TestCase
     end
 
     should "know about the types of filters that will be applied to the attributes" do
-      ContactDetail.respond_to?(:to_be_filtered).should be(true)
+      ContactDetail.respond_to?(:filtered_attributes).should be(true)
     end
     
     should "make it's filters available" do
@@ -32,11 +32,11 @@ class ActsAsFilterableIntegrationTest < Test::Unit::TestCase
     end
     
     should "freeze the macro collection so it cannot be mutated" do
-      ContactDetail.filters.store(:test, /./).should raise_error
+      lambda { ContactDetail.filters.store(:test, /./) }.should raise_error
     end
     
     should "add a macro to filter non-numeric values from string fields" do
-      ContactDetail.respond_to?(:filter_for_numerics).should be(true)
+      ContactDetail.respond_to?(:filter_for_digits).should be(true)
     end
     
     should "be savable with valid data" do
@@ -76,7 +76,7 @@ class ActsAsFilterableIntegrationTest < Test::Unit::TestCase
     
     context "with non-character attributes" do
       setup do
-        ContactDetail.filter_for_numerics :discount
+        ContactDetail.filter_for_digits :discount
       end
       
       should "not raise any errors due to a non-character attribute value" do
