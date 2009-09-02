@@ -5,7 +5,7 @@ require "matchy"
 
 gem "sqlite3-ruby"
 
-require File.dirname(__FILE__) + "/../init"
+require "acts_as_filterable"
 
 ActiveRecord::Base.logger = Logger.new("/tmp/acts_as_filterable.log")
 ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => "/tmp/acts_as_filterable.sqlite")
