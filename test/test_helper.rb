@@ -8,7 +8,7 @@ gem "sqlite3-ruby"
 require "acts_as_filterable"
 
 ActiveRecord::Base.logger = Logger.new("/tmp/acts_as_filterable.log")
-ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => "/tmp/acts_as_filterable.sqlite")
+ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
 ActiveRecord::Migration.verbose = false
 
 ActiveRecord::Schema.define do
@@ -18,10 +18,19 @@ ActiveRecord::Schema.define do
     t.string :fax_number
     t.float :discount
   end
+  
+  create_table :user do |t|
+    t.string :handle
+    t.string :phone_number
+  end
 end
 
 class ContactDetail < ActiveRecord::Base
   filter_for_digits :phone_number, :fax_number
+end
+
+class User < ActiveRecord::Base
+  filter_for_digits :phone_number
 end
 
 class Test::Unit::TestCase

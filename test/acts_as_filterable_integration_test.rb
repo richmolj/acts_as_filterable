@@ -59,7 +59,7 @@ class ActsAsFilterableIntegrationTest < Test::Unit::TestCase
     
     end
     
-    context "with a nill attribute value" do
+    context "with a nil attribute value" do
       setup do
         @model.phone_number = nil
       end
@@ -99,6 +99,14 @@ class ActsAsFilterableIntegrationTest < Test::Unit::TestCase
       should "not change the attribute value" do
         @model.phone_number.should be("2223334444")
       end
+    end
+    
+    context "that has filtered attribute names that are identical to another filtered model" do
+      
+      should "hold seperate collections of filtered_attributes" do
+        User.filtered_attributes.should_not == ContactDetail.filtered_attributes
+      end
+    
     end
     
   end
