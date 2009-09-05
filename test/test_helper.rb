@@ -3,8 +3,6 @@ require "activerecord"
 require "shoulda"
 require "matchy"
 
-gem "sqlite3-ruby"
-
 require "acts_as_filterable"
 
 ActiveRecord::Base.logger = Logger.new("/tmp/acts_as_filterable.log")
