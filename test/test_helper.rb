@@ -5,7 +5,6 @@ require "matchy"
 
 require "acts_as_filterable"
 
-ActiveRecord::Base.logger = Logger.new("/tmp/acts_as_filterable.log")
 ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
 ActiveRecord::Migration.verbose = false
 
