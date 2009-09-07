@@ -106,7 +106,11 @@ class ActsAsFilterableIntegrationTest < Test::Unit::TestCase
       should "hold seperate collections of filtered_attributes" do
         User.filtered_attributes.should_not == ContactDetail.filtered_attributes
       end
-    
+   
+      should "not overwrite attributes for other models" do
+        ContactDetail.filtered_attributes.include?(:fax_number).should_not be(nil)
+      end
+
     end
     
   end
