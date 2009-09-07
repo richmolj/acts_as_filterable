@@ -111,6 +111,10 @@ class ActsAsFilterableIntegrationTest < Test::Unit::TestCase
         ContactDetail.filtered_attributes.include?(:fax_number).should_not be(nil)
       end
 
+      should "not add filtered attributes to models that they are not intended for" do
+        User.filtered_attributes.include?(:phone_number).should_not be(true)
+      end
+
     end
     
   end
