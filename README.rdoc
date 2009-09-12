@@ -1,21 +1,23 @@
 = acts_as_filterable
 
+== Description
+
 acts_as_filterable is a small ActiveRecord plugin that was thrown together
 to avoid duplicating the same text filtering logic all over the place in a domain model. 
 
-  The only filter in place so far is one that will strip everything out of a string except the digit information. You might ask, "Why don't you just change the column type to a numeric one?". That _is_ the right way to go but we were faced with tens of millions of records and a lot of text processing (with a lot of bad data that would be hard to apply a deterministic ruleset to). So putting this in place will avoid the garbage data coming in moving forward.
+The only filter in place so far is one that will strip everything out of a string except the digit information. You might ask, "Why don't you just change the column type to a numeric one?". That _is_ the right way to go but we were faced with tens of millions of records and a lot of text processing (with a lot of bad data that would be hard to apply a deterministic ruleset to). So putting this in place will avoid the garbage data coming in moving forward.
   
-  I'd like to expand the ruleset moving forward to support different schemes like decimals and so on.
+I'd like to expand the ruleset moving forward to support different schemes like decimals and so on.
 
- to install as a gem:
+== Install as a gem:
  
- @config.gem "rares-acts_as_filterable", :source => "http://gems.github.com"@
+  config.gem "rares-acts_as_filterable", :source => "http://gems.github.com"
 
- to apply to fields on a model, add the following inside the class body:
+== To apply to fields on a model, add the following inside the class body:
  
- @filter_for_digits :phone_number, :fax_number@
+  filter_for_digits :phone_number, :fax_number
 
- if something is broken or it is missing a feature you know the deal; don't be part of the problem.
+if something is broken or it is missing a feature; you know the deal. Don't be part of the problem.
 
 == Copyright
 
