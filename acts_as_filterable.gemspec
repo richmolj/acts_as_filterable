@@ -32,7 +32,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.2}
-  s.summary = %q{TODO}
+  s.summary = %q{An ActiveRecord plugin that allows attribute-based filtering in order to normalize numeric data}
   s.test_files = [
     "test/acts_as_filterable_integration_test.rb",
      "test/test_helper.rb"
