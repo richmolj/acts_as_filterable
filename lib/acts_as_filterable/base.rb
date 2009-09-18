@@ -19,7 +19,8 @@ module ActsAsFilterable
         
         def filters
           @filters ||= returning(Hash.new([])) do |f|
-            f[:digits] = /[^\d]*/
+            f[:digits]    = Commands::Digits.new
+            f[:lowercase] = Commands::Lowercase.new
           end.freeze
         end
         
@@ -43,7 +44,7 @@ module ActsAsFilterable
       
       def apply_filter(filter, attr)
         if not send(attr).blank? and send(attr).is_a?(String)
-          send(attr).gsub!(filter, "")
+          write_attribute attr, filter.execute(send(attr))
         end
       end
             

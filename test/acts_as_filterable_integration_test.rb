@@ -10,7 +10,7 @@ class ActsAsFilterableIntegrationTest < Test::Unit::TestCase
         cd.discount = 0.25
       end
     end
-
+   
     should "add an #apply_filters instance method" do
       @model.send(:apply_filters).nil?.should_not be(true)
     end
