@@ -7,7 +7,9 @@ module ActsAsFilterable
       class Command
       
         def apply(record, attr)
-          record[attr] = execute record[attr]
+          if not record[attr].blank? and record[attr].is_a?(String)
+            record[attr] = execute record[attr]
+          end
         end
         
         private

@@ -43,9 +43,7 @@ module ActsAsFilterable
       private
       
       def apply_filter(filter, attr)
-        if not send(attr).blank? and send(attr).is_a?(String)
-          filter.apply self, attr
-        end
+        filter.apply self, attr
       end
             
     end
