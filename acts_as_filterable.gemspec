@@ -50,13 +50,9 @@ Gem::Specification.new do |s|
     else
       s.add_dependency(%q<activerecord>, [">= 1.15.0"])
       s.add_dependency(%q<activesupport>, [">= 1.4.4"])
-      s.add_dependency(%q<Shoulda>, [">= 0"])
-      s.add_dependency(%q<matchy>, [">= 0"])
     end
   else
     s.add_dependency(%q<activerecord>, [">= 1.15.0"])
     s.add_dependency(%q<activesupport>, [">= 1.4.4"])
-    s.add_dependency(%q<Shoulda>, [">= 0"])
-    s.add_dependency(%q<matchy>, [">= 0"])
   end
 end
