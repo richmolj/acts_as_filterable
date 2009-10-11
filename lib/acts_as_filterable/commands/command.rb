@@ -8,7 +8,7 @@ module ActsAsFilterable
       
         def apply(record, attr)
           if not record[attr].blank? and record[attr].is_a?(String)
-            record[attr] = execute record[attr]
+            record[attr] = execute(record[attr])
           end
         end
         

@@ -11,6 +11,22 @@ module ActsAsFilterable
       
       private 
       
+      module Language
+        
+        def filter(&blk)
+          instance_eval blk
+        end
+        
+        def digits(*args)
+          filtered_attributes[:digits] |= args unless args.empty?
+        end
+        
+        def lowercase(*args)
+          filtered_attributes[:lowercase] |= args unless args.empty?
+        end
+        
+      end
+      
       module ClassMethods
         
         def filter_for_digits(*args)
