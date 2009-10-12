@@ -9,24 +9,6 @@ module ActsAsFilterable
         klazz.before_validation :apply_filters
       end
       
-      private 
-      
-      module Language
-        
-        def filter(&blk)
-          instance_eval blk
-        end
-        
-        def digits(*args)
-          filtered_attributes[:digits] |= args unless args.empty?
-        end
-        
-        def lowercase(*args)
-          filtered_attributes[:lowercase] |= args unless args.empty?
-        end
-        
-      end
-      
       module ClassMethods
         
         def self.extended(klazz)
@@ -39,7 +21,6 @@ module ActsAsFilterable
           end
         end
 
-        # TODO: make this a lambdas to eliminate the need for the external classes
         def filters
           @filters ||= returning(Hash.new([])) do |f|
             f[:digits]    = lambda { |value| value.gsub!(/[^\d]*/, "") }
