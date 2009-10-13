@@ -104,15 +104,15 @@ class ActsAsFilterableIntegrationTest < Test::Unit::TestCase
     context "that has filtered attribute names that are identical to another filtered model" do
       
       should "hold seperate collections of filtered_attributes" do
-        User.filtered_attributes.should_not == ContactDetail.filtered_attributes
+        User.filtered_attributes.should_not include(ContactDetail.filtered_attributes)
       end
    
       should "not overwrite attributes for other models" do
-        ContactDetail.filtered_attributes.include?(:fax_number).should_not be(nil)
+        ContactDetail.filtered_attributes.should_not include(:fax_number)
       end
 
       should "not add filtered attributes to models that they are not intended for" do
-        User.filtered_attributes.include?(:phone_number).should_not be(true)
+        User.filtered_attributes.should_not include(:phone_number)
       end
 
     end
