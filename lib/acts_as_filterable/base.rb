@@ -15,7 +15,7 @@ module ActsAsFilterable
           klazz.filters.keys.each do |key|
             klazz.class_eval %{
               def self.filter_for_#{key}(*args)
-                filtered_attributes[:#{key.to_sym}] |= args unless args.empty?
+                filtered_attributes[:#{key}] |= args unless args.empty?
               end
             }, __FILE__, __LINE__
           end
