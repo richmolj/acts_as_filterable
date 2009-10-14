@@ -23,8 +23,8 @@ module ActsAsFilterable
 
         def filters
           @filters ||= returning Hash.new([]) do |f|
-            f[:digits]    = lambda { |value| value.gsub!(/[^\d]*/, "") }
-            f[:lowercase] = lambda { |value| value.downcase }
+            f[:digits]    = lambda { |value| value.gsub!(/[^\d]*/, "") || value }
+            f[:lowercase] = lambda { |value| value.downcase! || value }
           end.freeze
         end
         
