@@ -13,11 +13,11 @@ module ActsAsFilterable
         
         def self.extended(klazz)
           klazz.filters.keys.each do |key|
-            klazz.class_eval %{
+            klazz.class_eval <<-MACROS, __FILE__, __LINE__ + 1
               def self.filter_for_#{key}(*args)
                 filtered_attributes[:#{key}] |= args unless args.empty?
               end
-            }, __FILE__, __LINE__
+            MACROS
           end
         end
 
