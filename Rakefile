@@ -12,8 +12,8 @@ begin
 
     gem.add_dependency("activerecord", ">= 1.15.0") 
     gem.add_runtime_dependency("activesupport", ">= 1.4.4")
-    gem.add_development_dependency("Shoulda")
-    gem.add_development_dependency("matchy")   
+    gem.add_development_dependency("Shoulda", ">= 0")
+    gem.add_development_dependency("matchy", ">= 0")   
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
