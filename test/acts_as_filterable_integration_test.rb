@@ -29,6 +29,7 @@ class ActsAsFilterableIntegrationTest < Test::Unit::TestCase
     
     should "contain some filters initially" do
       ContactDetail.filters[:numeric].nil?.should_not be(true)
+      ContactDetail.filters[:lowercase].nil?.should_not be(true)
     end
     
     should "freeze the macro collection so it cannot be mutated" do
@@ -37,6 +38,10 @@ class ActsAsFilterableIntegrationTest < Test::Unit::TestCase
     
     should "add a macro to filter non-numeric values from string fields" do
       ContactDetail.respond_to?(:filter_for_digits).should be(true)
+    end
+  
+    should "add a macro to filter values to lowercase from string fields" do
+      ContactDetail.respond_to?(:filter_for_lowercase).should be(true)
     end
     
     should "be savable with valid data" do
@@ -74,12 +79,12 @@ class ActsAsFilterableIntegrationTest < Test::Unit::TestCase
       end
     end
     
-    context "with non-character attributes" do
+    context "with non-string attributes" do
       setup do
         ContactDetail.filter_for_digits :discount
       end
       
-      should "not raise any errors due to a non-character attribute value" do
+      should "not raise any errors due to a non-string attribute value" do
         lambda { @model.valid? }.should_not raise_error
       end
       
@@ -90,7 +95,7 @@ class ActsAsFilterableIntegrationTest < Test::Unit::TestCase
       
     end
     
-    context "with an attribute value that contains no non-numeric values to be stripped" do
+    context "with an attribute value that contains no values to be stripped" do
       setup do 
         @model.phone_number = "2223334444"
         @model.valid?
@@ -104,15 +109,11 @@ class ActsAsFilterableIntegrationTest < Test::Unit::TestCase
     context "that has filtered attribute names that are identical to another filtered model" do
       
       should "hold seperate collections of filtered_attributes" do
-        User.filtered_attributes.should_not include(ContactDetail.filtered_attributes)
+        User.filtered_attributes.should_not === ContactDetail.filtered_attributes
       end
    
-      should "not overwrite attributes for other models" do
-        ContactDetail.filtered_attributes.should_not include(:fax_number)
-      end
-
-      should "not add filtered attributes to models that they are not intended for" do
-        User.filtered_attributes.should_not include(:phone_number)
+      should "not add attributes to other models errantly" do
+        ContactDetail.filtered_attributes[:digits].should_not include(:handle)
       end
 
     end

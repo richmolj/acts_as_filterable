@@ -28,6 +28,7 @@ end
 
 class User < ActiveRecord::Base
   filter_for_digits :phone_number
+  filter_for_lowercase :handle
 end
 
 class Test::Unit::TestCase
