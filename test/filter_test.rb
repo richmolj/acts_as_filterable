@@ -53,6 +53,51 @@ class FilterTest < Test::Unit::TestCase
       end
     end
 
+    context "uppercase filter, it" do
+      setup do
+        @filter = User.filters[:uppercase]
+      end
+
+      should "uppercase all alpha values" do
+        @filter.call("lowercase string").should be("LOWERCASE STRING")
+      end
+      
+      should "not create extra string objects when replacing values" do
+        value = "translate"
+        @filter.call(value).should === value
+      end
+    
+      should "not create extra string objects when no values are to be replaced" do
+        value = "43"
+        @filter.call(value).should === value
+      end
+    end
+
+    context "whitesapce filter, it" do
+      setup do
+        @filter = User.filters[:whitespace]
+      end
+
+      should "replace all un-neccessary whitespace" do
+        @filter.call("\t hai!    this is neat\n\nok?  \t").should be("hai! this is neat ok?")
+      end
+      
+      should "trim the ends of the string" do
+        @filter.call(" this ").should be("this")
+      end
+      
+      should "not create extra string objects when replacing values" do
+        value = "TRANSLATE"
+        @filter.call(value).should === value
+      end
+    
+      should "not create extra string objects when no values are to be replaced" do
+        value = "43"
+        @filter.call(value).should === value
+      end
+    end
+
+
   end
 
 end
