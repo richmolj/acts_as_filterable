@@ -2,6 +2,12 @@ require "test_helper"
 
 class FilterTest < Test::Unit::TestCase
 
+  def assert_identity_after_filter(filter, value)
+    identity = value.object_id
+    filter.call(value)
+    identity.should == value.object_id
+  end
+
   context "When applying the" do
     
     context "digit filter, it" do
@@ -10,25 +16,29 @@ class FilterTest < Test::Unit::TestCase
       end
       
       should "strip any non-digit values from the string" do
-        @filter.call("45tr.,2").should be("452")
+        value = "45tr.,2"
+        @filter.call(value)
+        value.should be("452")
       end
       
       should "not lose digit values" do
-        @filter.call("432099132").should be("432099132")
+        value = "432099132"
+        @filter.call(value)
+        value.should be("432099132")
       end
       
       should "return a coercable numerica value" do
-        @filter.call("4").to_i.should be(4)
+        value = "4"
+        @filter.call(value)
+        value.to_i.should be(4)
       end
       
       should "not create extra string objects when replacing values" do
-        value = "54tr"
-        @filter.call(value).should === value
+        assert_identity_after_filter @filter, "54tr"
       end
     
       should "not create extra string objects when no values are to be replaced" do
-        value = "54"
-        @filter.call(value).should === value
+        assert_identity_after_filter @filter, "54"
       end
     
     end
@@ -39,17 +49,17 @@ class FilterTest < Test::Unit::TestCase
       end
 
       should "lowercase all alpha values" do
-        @filter.call("FAIl STRING").should be("fail string")
+        value = "FAIl STRING"
+        @filter.call(value)
+        value.should be("fail string")
       end
       
       should "not create extra string objects when replacing values" do
-        value = "TRANSLATE"
-        @filter.call(value).should === value
+        assert_identity_after_filter @filter, "TRANSLATE"
       end
     
       should "not create extra string objects when no values are to be replaced" do
-        value = "43"
-        @filter.call(value).should === value
+        assert_identity_after_filter @filter, "43"
       end
     end
 
@@ -59,17 +69,17 @@ class FilterTest < Test::Unit::TestCase
       end
 
       should "uppercase all alpha values" do
-        @filter.call("lowercase string").should be("LOWERCASE STRING")
+        value = "lowercase string"
+        @filter.call(value)
+        value.should be("LOWERCASE STRING")
       end
       
       should "not create extra string objects when replacing values" do
-        value = "translate"
-        @filter.call(value).should === value
+        assert_identity_after_filter @filter, "translate"
       end
     
       should "not create extra string objects when no values are to be replaced" do
-        value = "43"
-        @filter.call(value).should === value
+        assert_identity_after_filter @filter, "43"
       end
     end
 
@@ -79,24 +89,25 @@ class FilterTest < Test::Unit::TestCase
       end
 
       should "replace all un-neccessary whitespace" do
-        @filter.call("\t hai!    this is neat\n\nok?  \t").should be("hai! this is neat ok?")
+        value = "\t hai!    this is neat\n\nok?  \t"
+        @filter.call(value)
+        value.should be("hai! this is neat ok?")
       end
       
       should "trim the ends of the string" do
-        @filter.call(" this ").should be("this")
+        value = " this "
+        @filter.call(value)
+        value.should be("this")
       end
       
       should "not create extra string objects when replacing values" do
-        value = "TRANSLATE"
-        @filter.call(value).should === value
+        assert_identity_after_filter @filter, "TRANSLATE"
       end
     
       should "not create extra string objects when no values are to be replaced" do
-        value = "43"
-        @filter.call(value).should === value
+        assert_identity_after_filter @filter, "43"
       end
     end
-
 
   end
 

@@ -23,15 +23,10 @@ module ActsAsFilterable
 
         def filters
           @filters ||= returning Hash.new([]) do |f|
-            f[:digits]     = lambda { |value| value.gsub!(/[^\d]*/, "") || value }
-            f[:lowercase]  = lambda { |value| value.downcase! || value }
-            f[:uppercase]  = lambda { |value| value.upcase! || value }
-            f[:whitespace] = lambda do |value| 
-              returning value do |v|
-                v.gsub!(/\s+/, " ") 
-                v.strip!
-              end
-            end 
+            f[:digits]     = lambda { |attr| attr.gsub!(/[^\d]*/, "") }
+            f[:lowercase]  = lambda { |attr| attr.downcase! }
+            f[:uppercase]  = lambda { |attr| attr.upcase! }
+            f[:whitespace] = lambda { |attr| attr.gsub!(/\s+/, " "); attr.strip! }
           end.freeze
         end
         
@@ -46,17 +41,15 @@ module ActsAsFilterable
       def apply_filters
         self.class.filtered_attributes.each do |key, value|
           value.each do |attr|
-            apply_filter self.class.filters[key], attr
+            apply_filter self, attr, self.class.filters[key]
           end
         end
       end
       
       private
       
-      def apply_filter(filter, attr)
-        if not self[attr].blank? and self[attr].is_a?(String)
-          self[attr] = filter.call(self[attr])
-        end
+      def apply_filter(record, attr, filter)
+        filter.call(record[attr]) if record[attr].is_a?(String)
       end
             
     end
