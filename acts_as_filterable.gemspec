@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Rob Ares"]
-  s.date = %q{2009-10-17}
+  s.date = %q{2009-10-22}
   s.email = %q{rob.ares@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -35,7 +35,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.5}
-  s.summary = %q{TODO}
+  s.summary = %q{Filter attributes and stuff.}
   s.test_files = [
     "test/acts_as_filterable_integration_test.rb",
      "test/filter_test.rb",

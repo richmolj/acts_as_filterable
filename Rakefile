@@ -4,7 +4,7 @@ begin
   require "jeweler"
   Jeweler::Tasks.new do |gem|
     gem.name = "acts_as_filterable"
-    gem.summary = %Q{TODO}
+    gem.summary = %Q{Filter attributes and stuff.}
     gem.email = "rob.ares@gmail.com"
     gem.homepage = "http://github.com/rares/acts_as_filterable"
     gem.authors = ["Rob Ares"]

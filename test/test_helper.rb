@@ -16,7 +16,7 @@ ActiveRecord::Schema.define do
     t.float :discount
   end
   
-  create_table :user do |t|
+  create_table :user, :force => true do |t|
     t.string :handle
     t.string :phone_number
   end
