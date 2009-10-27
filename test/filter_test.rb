@@ -8,6 +8,21 @@ class FilterTest < Test::Unit::TestCase
     identity.should == value.object_id
   end
 
+  context "Filters" do
+    should "default filters that don't exist to an empty array" do
+      ActsAsFilterable::Filters[:test].empty?.should be(true)
+    end
+  
+    should "contain some filters initially" do
+      ActsAsFilterable::Filters[:numeric].nil?.should_not be(true)
+      ActsAsFilterable::Filters[:lowercase].nil?.should_not be(true)
+    end
+  
+    should "freeze the macro collection so it cannot be mutated" do
+      lambda { ActsAsFilterable::Filters.store(:test, /./) }.should raise_error
+    end
+  end
+
   context "When applying the" do
     
     context "digit filter, it" do
