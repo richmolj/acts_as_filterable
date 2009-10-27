@@ -1,4 +1,6 @@
 module ActsAsFilterable
+  autoload :Filters, "acts_as_filterable/base"
+  
   module ActiveRecordExt 
     autoload :Base, "acts_as_filterable/base"
   end

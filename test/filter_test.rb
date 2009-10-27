@@ -12,7 +12,7 @@ class FilterTest < Test::Unit::TestCase
     
     context "digit filter, it" do
       setup do
-        @filter = User.filters[:digits]
+        @filter = ActsAsFilterable::Filters[:digits]
       end
       
       should "strip any non-digit values from the string" do
@@ -45,7 +45,7 @@ class FilterTest < Test::Unit::TestCase
     
     context "lowercase filter, it" do
       setup do
-        @filter = User.filters[:lowercase]
+        @filter = ActsAsFilterable::Filters[:lowercase]
       end
 
       should "lowercase all alpha values" do
@@ -65,7 +65,7 @@ class FilterTest < Test::Unit::TestCase
 
     context "uppercase filter, it" do
       setup do
-        @filter = User.filters[:uppercase]
+        @filter = ActsAsFilterable::Filters[:uppercase]
       end
 
       should "uppercase all alpha values" do
@@ -85,7 +85,7 @@ class FilterTest < Test::Unit::TestCase
 
     context "whitesapce filter, it" do
       setup do
-        @filter = User.filters[:whitespace]
+        @filter = ActsAsFilterable::Filters[:whitespace]
       end
 
       should "replace all un-neccessary whitespace" do

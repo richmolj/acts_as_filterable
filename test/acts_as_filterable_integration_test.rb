@@ -19,23 +19,6 @@ class ActsAsFilterableIntegrationTest < Test::Unit::TestCase
       ContactDetail.respond_to?(:filtered_attributes).should be(true)
     end
     
-    should "make it's filters available" do
-      ContactDetail.respond_to?(:filters).should be(true)
-    end
-    
-    should "default filters that don't exist to an empty array" do
-      ContactDetail.filters[:test].empty?.should be(true)
-    end
-    
-    should "contain some filters initially" do
-      ContactDetail.filters[:numeric].nil?.should_not be(true)
-      ContactDetail.filters[:lowercase].nil?.should_not be(true)
-    end
-    
-    should "freeze the macro collection so it cannot be mutated" do
-      lambda { ContactDetail.filters.store(:test, /./) }.should raise_error
-    end
-    
     should "add a macro to filter non-numeric values from string fields" do
       ContactDetail.respond_to?(:filter_for_digits).should be(true)
     end
