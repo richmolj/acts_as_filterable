@@ -1,7 +1,7 @@
 require "test_helper"
 
 class ActsAsFilterableIntegrationTest < Test::Unit::TestCase
-
+  
   context "An ActiveRecord model using acts_as_filterable" do
     setup do
       @model = ContactDetail.new do |cd|
