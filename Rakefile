@@ -41,13 +41,19 @@ end
 
 
 task :default => :test
-
-begin   
-  require "yard"
-  YARD::Rake::YardocTask.new do |t|
-    t.files   = ["lib/**/*.rb"]
-    t.options = ["--private", "--protected"]
+ 
+require "rake/rdoctask"
+Rake::RDocTask.new do |rdoc|
+  if File.exist?("VERSION.yml")
+    config = YAML.load(File.read("VERSION.yml"))
+    version = "#{config[:major]}.#{config[:minor]}.#{config[:patch]}"
+  else
+    version = ""
   end
-rescue LoadError
-  STDOUT.puts "Couldn't load yardoc"
+ 
+  rdoc.rdoc_dir = "rdoc"
+  rdoc.title = "acts_as_filterable #{version}"
+  rdoc.rdoc_files.include("README*")
+  rdoc.rdoc_files.include("lib/**/*.rb")
 end
+

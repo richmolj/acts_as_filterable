@@ -1,6 +1,6 @@
 module ActsAsFilterable
-  
-  Filters = returning Hash.new([]) do |f|
+
+  Filters = returning Hash.new([]) do |f| #nodoc#
     f[:digits]     = lambda { |attr| attr.gsub!(/[^\d]*/, "") }
     f[:lowercase]  = lambda { |attr| attr.downcase! }
     f[:uppercase]  = lambda { |attr| attr.upcase! }
@@ -11,7 +11,6 @@ module ActsAsFilterable
     
     module Base
       
-      # @private
       def self.included(klazz)
         klazz.extend ClassMethods
         klazz.before_validation :apply_filters
@@ -19,7 +18,6 @@ module ActsAsFilterable
       
       module ClassMethods
         
-        # @private
         def self.extended(klazz)
           ActsAsFilterable::Filters.each_key do |key|
             klazz.class_eval <<-MACROS, __FILE__, __LINE__ + 1
@@ -30,7 +28,6 @@ module ActsAsFilterable
           end
         end
         
-        # @private
         def filtered_attributes
           @filtered_attributes ||= Hash.new []
         end
