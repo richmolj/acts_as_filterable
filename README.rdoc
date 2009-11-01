@@ -9,6 +9,11 @@ The only filter in place so far is one that will strip everything out of a strin
   
 I'd like to expand the ruleset moving forward to support different schemes like decimals and so on.
 
+== Dependencies
+
+Ruby 1.8.6, 1.8.7, 1.9.1, 1.9.2
+Rails 1.2 and above.
+
 == Install as a gem:
  
   config.gem "acts_as_filterable", :source => "http://gemcutter.org"
