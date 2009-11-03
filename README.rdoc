@@ -1,9 +1,17 @@
 = acts_as_filterable
 
-acts_as_filterable is a small ActiveRecord plugin that was thrown together
-to avoid duplicating the same text filtering logic all over the place in a domain model. 
+acts_as_filterable is an ActiveRecord plugin that was hacked together (originally a monkey patch) to avoid repeating the same text filtering logic that was re-implemented all over the place in a legacy domain model. 
 
-The only filter in place so far is one that will strip everything out of a string except the digit information. You might ask, "Why don't you just change the column type to a numeric one?". That _is_ the right way to go but we were faced with tens of millions of records and a lot of text processing (with a lot of bad data that would be hard to apply a deterministic ruleset to). So putting this in place will avoid the garbage data coming in moving forward.
+== Background
+
+You might ask why we just didn't convert the column value. That _would_ be the right way to go but with tens of millions of rows and numerous legacy apps that expect the data to be a character string; the alternative seemed much more appealing for the time being :). So putting this in place would avoid the garbage data coming in moving forward and assure that the logic is implemented in a sane  (and re-usable) way. Hopefully someone else can find a use for it as well...
+
+== Current filters in place:
+
+* filter_for_digits: leaves only numeric values
+* filter_for_uppercase: uppercase all alpha characters
+* filter_for_lowercase: lowercase all alpha characters
+* filter_for_whitespace: strips and non-essential whitespace out of a string (leaving only single whitespace characters).
 
 Features I'd like to add in the future:
 * User-defined custom filters configured via DSL.
@@ -11,7 +19,7 @@ Features I'd like to add in the future:
 * Allow the developer to opt-in models for filtering and not include 
   the plugin in ActiveRecord::Base
 
-= Dependencies
+= Runtime Dependencies
 
 * Rails 1.2+
 * Tested on Ruby 1.8.6, 1.8.7, 1.9.1
@@ -21,6 +29,11 @@ Features I'd like to add in the future:
 == Rails
 
   config.gem "acts_as_filterable", :source => "http://gemcutter.org"
+
+== Bundler
+
+  source "http://gemcutter.org"
+  gem "acts_as_filterable", "0.2.0"
 
 == RubyGems
 
