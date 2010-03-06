@@ -74,7 +74,7 @@ describe ActsAsFilterable::ActiveRecordExt::Base do
   end
 
   it "should not add attributes to other models errantly" do
-    ContactDetail.filtered_attributes[:digits].wont_include(:handle)
+    ContactDetail.filtered_attributes[:digits].flatten.wont_include([:handle].flatten)
   end
 
 end

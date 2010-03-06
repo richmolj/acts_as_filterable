@@ -21,7 +21,7 @@ describe ActsAsFilterable::Filters do
   end
 
   it "should freeze the macro collection so it cannot be mutated" do
-    proc { ActsAsFilterable::Filters.store(:test, /./) }.must_raise TypeError
+    proc { ActsAsFilterable::Filters.store(:test, /./) }.must_raise TypeError, RuntimeError
   end
 
   it "should strip any non-digit values from the string" do
