@@ -1,7 +1,5 @@
-require "test/unit"
-require "activerecord"
-require "shoulda"
-require "matchy"
+require "minitest/spec"
+require "active_record"
 
 require "acts_as_filterable"
 
@@ -15,7 +13,7 @@ ActiveRecord::Schema.define do
     t.string :fax_number
     t.float :discount
   end
-  
+
   create_table :users, :force => true do |t|
     t.string :handle
     t.string :phone_number
@@ -31,5 +29,4 @@ class User < ActiveRecord::Base
   filter_for_lowercase :handle
 end
 
-class Test::Unit::TestCase
-end
+MiniTest::Unit.autorun

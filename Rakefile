@@ -9,10 +9,9 @@ begin
     gem.homepage = "http://github.com/rares/acts_as_filterable"
     gem.authors = ["Rob Ares"]
 
-    gem.add_dependency("activerecord", ">= 1.15.0") 
+    gem.add_runtime_dependency("activerecord", ">= 1.15.0")
     gem.add_runtime_dependency("activesupport", ">= 1.4.4")
-    gem.add_development_dependency("Shoulda", ">= 0")
-    gem.add_development_dependency("matchy", ">= 0")   
+    gem.add_development_dependency("minitest", ">= 1.5.0")
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
@@ -22,8 +21,6 @@ require "rake/testtask"
 Rake::TestTask.new(:test) do |test|
   test.libs << "lib" << "test"
   test.pattern = "test/**/*_test.rb"
-  test.verbose = false
-  test.options =  "-v"
 end
 
 begin
@@ -41,7 +38,7 @@ end
 
 
 task :default => :test
- 
+
 require "rake/rdoctask"
 Rake::RDocTask.new do |rdoc|
   if File.exist?("VERSION.yml")
@@ -50,7 +47,7 @@ Rake::RDocTask.new do |rdoc|
   else
     version = ""
   end
- 
+
   rdoc.rdoc_dir = "rdoc"
   rdoc.title = "acts_as_filterable #{version}"
   rdoc.rdoc_files.include("README*")
