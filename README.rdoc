@@ -1,6 +1,6 @@
 = acts_as_filterable
 
-acts_as_filterable is an ActiveRecord plugin that was hacked together (originally a monkey patch) to avoid repeating the same text filtering logic that was re-implemented all over the place in a legacy domain model. 
+acts_as_filterable is an ActiveRecord plugin that was hacked together (originally a monkey patch) to avoid repeating the same text filtering logic that was re-implemented all over the place in a legacy domain model.
 
 == Background
 
@@ -16,31 +16,35 @@ You might ask why we just didn't convert the column value. That _would_ be the r
 Features I'd like to add in the future:
 * User-defined custom filters configured via DSL.
 * Additional macros that filter decimal values, etc.
-* Allow the developer to opt-in models for filtering and not include 
+* Allow the developer to opt-in models for filtering and not include
   the plugin in ActiveRecord::Base
 
 = Runtime Dependencies
 
-* Rails 1.2+
+* Rails 1.2+ (up to rails-3.0.0.beta)
 * Tested on Ruby 1.8.6, 1.8.7, 1.9.1
 
 = Install
- 
+
 == Rails
 
-  config.gem "acts_as_filterable", :source => "http://gemcutter.org"
+  config.gem "acts_as_filterable", :source => "http://rubygems.org"
 
 == Bundler
 
-  source "http://gemcutter.org"
-  gem "acts_as_filterable", "0.2.0"
+  source "http://rubygems.org"
+  gem "acts_as_filterable", "0.3.0"
 
 == RubyGems
 
-  gem install acts_as_filterable --source http://gemcutter.org
+  gem install acts_as_filterable --source http://rubygems.org
+
+== Regular Library install
+
+  ruby setup.rb install
 
 = Usage
- 
+
   class MyModel < ActiveRecord::Base
     filter_for_digits :phone_number, :fax_number
   end
@@ -51,4 +55,4 @@ If something is broken or you need a feature; you know the deal. Don't be part o
 
 == Copyright
 
-Copyright (c) 2009 Rob Ares. See LICENSE for details.
+Copyright (c) 2010 Rob Ares. See LICENSE for details.
