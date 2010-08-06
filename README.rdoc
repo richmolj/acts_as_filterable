@@ -1,6 +1,6 @@
 = acts_as_filterable
 
-acts_as_filterable is an ActiveRecord plugin that was hacked together (originally a monkey patch) to avoid repeating the same text filtering logic that was re-implemented all over the place in a legacy domain model.
+acts_as_filterable is a plugin that was hacked together (originally a monkey patch) to avoid repeating the same text filtering logic that was re-implemented all over the place in a legacy domain model.
 
 == Background
 
