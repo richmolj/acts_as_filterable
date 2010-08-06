@@ -41,7 +41,7 @@ module ActsAsFilterable
 
     def method_missing(id, *args, &blk)
       if id.to_s =~ /^#{matcher = "filter_for_"}/
-        apply_filter id.to_s.gsub(matcher, ''), [args.shift].flatten
+        apply_filter id.to_s.gsub(matcher, ''), args
       else
         super
       end
