@@ -16,7 +16,7 @@ module ActsAsFilterable
       class_eval <<-EOS, __FILE__, __LINE__ + 1
         def #{attribute}
           proc = ActsAsFilterable::Configuration.filters[:#{filter_name}]
-          proc.call original_value
+          proc.call read_attribute(:#{attribute})
         end
 
         def #{attribute}=(val)
