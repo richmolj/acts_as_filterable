@@ -15,13 +15,11 @@ module ActsAsFilterable
     def apply_column_alias(filter_name, attribute)
       class_eval <<-EOS, __FILE__, __LINE__ + 1
         def #{attribute}
-          return if (original_value = read_attribute(:#{attribute})).blank?
           proc = ActsAsFilterable::Configuration.filters[:#{filter_name}]
           proc.call original_value
         end
 
         def #{attribute}=(val)
-          return write_attribute(:#{attribute}, nil) if val.nil?
           proc = ActsAsFilterable::Configuration.filters[:#{filter_name}]
           write_attribute(:#{attribute}, proc.call(val))
         end
@@ -34,7 +32,6 @@ module ActsAsFilterable
 
       class_eval <<-EOS, __FILE__, __LINE__ + 1
         def #{attribute}_with_#{filter_name}_filter
-          return if (original_value = #{attribute}_without_#{filter_name}_filter).blank?
           proc = ActsAsFilterable::Configuration.filters[:#{filter_name}]
           proc.call #{attribute}_without_#{filter_name}_filter
         end
