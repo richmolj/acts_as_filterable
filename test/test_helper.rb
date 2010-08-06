@@ -1,5 +1,11 @@
+require 'rubygems'
 require "minitest/spec"
 require "active_record"
+
+begin
+  require 'redgreen'
+rescue LoadError
+end
 
 require "acts_as_filterable"
 
@@ -20,13 +26,37 @@ ActiveRecord::Schema.define do
   end
 end
 
+ActsAsFilterable.configure do |config|
+  config.add_filter :bad_colleges do |value|
+    "bowdoin college sucks"
+  end
+
+  config.add_filter :stars do |value|
+    "#{value}**"
+  end
+end
+
 class ContactDetail < ActiveRecord::Base
+  include ActsAsFilterable
+
   filter_for_digits :phone_number, :fax_number
 end
 
 class User < ActiveRecord::Base
+  include ActsAsFilterable
+
   filter_for_digits :phone_number
   filter_for_lowercase :handle
+end
+
+class Foo
+  include ActsAsFilterable
+
+  attr_accessor :name
+
+  filter_for_lowercase :name
+  filter_for_whitespace :name
+  filter_for_stars :name
 end
 
 MiniTest::Unit.autorun

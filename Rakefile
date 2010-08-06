@@ -1,4 +1,5 @@
 require "rake"
+require "yaml"
 
 begin
   require "jeweler"
@@ -9,8 +10,6 @@ begin
     gem.homepage = "http://github.com/rares/acts_as_filterable"
     gem.authors = ["Rob Ares"]
 
-    gem.add_runtime_dependency("activerecord", ">= 1.15.0")
-    gem.add_runtime_dependency("activesupport", ">= 1.4.4")
     gem.add_development_dependency("minitest", ">= 1.5.0")
   end
 rescue LoadError
@@ -53,4 +52,3 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.include("README*")
   rdoc.rdoc_files.include("lib/**/*.rb")
 end
-

@@ -1,10 +1,22 @@
-require "active_support/core_ext/object"
-require "active_record"
+require File.dirname(__FILE__) + '/acts_as_filterable/configuration'
+require File.dirname(__FILE__) + '/acts_as_filterable/filtering'
 
 module ActsAsFilterable
-  module ActiveRecordExt
-    autoload :Base, "acts_as_filterable/base"
-  end
-end
 
-ActiveRecord::Base.send :include, ActsAsFilterable::ActiveRecordExt::Base
+  class << self
+    def configuration
+      @configuration ||= Configuration.new
+    end
+
+    def configure
+      yield configuration
+    end
+
+    def included(klass)
+      klass.send(:class_inheritable_accessor, :filters)
+      klass.filters = Configuration.filters
+      klass.extend Filtering
+    end
+  end
+
+end
