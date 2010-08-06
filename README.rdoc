@@ -6,7 +6,7 @@ acts_as_filterable is an ActiveRecord plugin that was hacked together (originall
 
 You might ask why we just didn't convert the column value. That _would_ be the right way to go but with tens of millions of rows and numerous legacy apps that expect the data to be a character string; the alternative seemed much more appealing for the time being :). So putting this in place would avoid the garbage data coming in moving forward and assure that the logic is implemented in a sane  (and re-usable) way. Hopefully someone else can find a use for it as well...
 
-== Current filters in place:
+== Default filters in place:
 
 * filter_for_digits: leaves only numeric values
 * filter_for_uppercase: uppercase all alpha characters
@@ -14,25 +14,21 @@ You might ask why we just didn't convert the column value. That _would_ be the r
 * filter_for_whitespace: strips and non-essential whitespace out of a string (leaving only single whitespace characters).
 
 Features I'd like to add in the future:
-* User-defined custom filters configured via DSL.
 * Additional macros that filter decimal values, etc.
-* Allow the developer to opt-in models for filtering and not include
-  the plugin in ActiveRecord::Base
 
 = Runtime Dependencies
 
-* Rails 1.2+ (up to rails-3.0.0.beta)
-* Tested on Ruby 1.8.6, 1.8.7, 1.9.1
+* Rails 1.2+ (up to rails-3.0.0.rc)
+* Tested on Ruby 1.8.6, 1.8.7, 1.9.1, 1.9.2
 
 = Install
 
-== Rails
+== Rails 2.3
 
-  config.gem "acts_as_filterable", :source => "http://rubygems.org"
+  config.gem "acts_as_filterable"
 
-== Bundler
+== Rails 3 / Bundler
 
-  source "http://rubygems.org"
   gem "acts_as_filterable", "0.3.0"
 
 == RubyGems
@@ -47,6 +43,16 @@ Features I'd like to add in the future:
 
   class MyModel < ActiveRecord::Base
     filter_for_digits :phone_number, :fax_number
+  end
+
+== Custom Filters
+
+in your config/initializers/acts_as_filterable.rb
+
+  ActsAsFilterable.configure do |config|
+    config.add_filter :foo do |value|
+      # code to modify and return value goes here
+    end
   end
 
 = Contributing
